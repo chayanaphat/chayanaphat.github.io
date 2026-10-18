@@ -99,6 +99,9 @@
   .choice.on::after{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
   .choice.off{cursor:default;opacity:.85}
   .choice.off::after{display:none}
+  .term-seg{display:flex;gap:6px;margin:10px 0 2px}
+  .term-seg button{flex:1;padding:8px;border-radius:10px;border:1px solid #f1b8c8;background:#fff;font-size:13px;font-weight:600;color:var(--ink)}
+  .term-seg button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
   .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--red);background:var(--red-soft);padding:3px 10px;border-radius:999px;margin-bottom:6px}
   .btn-line{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px;border-radius:16px;background:var(--line);color:#fff;font-size:17px;font-weight:700;text-decoration:none;margin-top:14px;box-shadow:0 8px 20px rgba(6,199,85,.35)}
   .btn-line svg{width:24px;height:24px}
@@ -268,14 +271,14 @@
         </div>
         <div class="plan">
           <div class="for">โรคร้ายแรง · เบี้ยคงที่</div>
-          <h3>AIA CI SuperCare 20/99</h3>
+          <h3>AIA CI SuperCare 10/99 · 20/99</h3>
           <ul>
-            <li>จ่ายเบี้ย 20 ปี เบี้ยเท่าเดิมทุกปี</li>
+            <li>เลือกจ่ายเบี้ย 10 หรือ 20 ปี เบี้ยเท่าเดิมทุกปี</li>
             <li>ครอบคลุม 62 โรค รวมระยะเริ่มต้น (รับ 20%)</li>
             <li>ระยะรุนแรงหรือเสียชีวิต รับ 100% ของทุน</li>
             <li>อยู่ครบอายุ 99 รับเงินคืน · รับอายุถึง 65 ปี</li>
           </ul>
-          <div class="from">ตัวอย่าง: ชาย 35 ปี ทุน 1 ล้าน <b>40,070 บาท/ปี</b></div>
+          <div class="from">ตัวอย่าง: ชาย 35 ปี ทุน 1 ล้าน จ่าย 20 ปี <b>40,070 บาท/ปี</b> · จ่าย 10 ปี <b>69,130 บาท/ปี</b></div>
         </div>
         <div class="plan">
           <div class="for">อายุ 50–70 ปี</div>
@@ -300,7 +303,7 @@
       <details><summary>เบี้ยที่คำนวณได้ คือราคาจริงไหม?</summary><p>เป็นเบี้ยมาตรฐานจากตารางอัตราของ AIA สำหรับผู้มีสุขภาพปกติ เบี้ยจริงอาจต่างไปตามผลพิจารณาสุขภาพและอาชีพ แอด LINE เพื่อรับใบเสนอราคาที่ถูกต้อง</p></details>
       <details><summary>มีโรคประจำตัว ทำได้ไหม?</summary><p>แผน Senior Happy (อายุ 50–70) ไม่ต้องตรวจและไม่ต้องตอบคำถามสุขภาพ ส่วนแผนอื่นขึ้นกับการพิจารณาของบริษัท ทักมาเล่าอาการได้เลย จะช่วยดูแผนที่เป็นไปได้ให้</p></details>
       <details><summary>เบี้ยประกันลดหย่อนภาษีได้ไหม?</summary><p>เบี้ยประกันชีวิตลดหย่อนได้สูงสุด 100,000 บาท ส่วนเบี้ยสุขภาพ/โรคร้ายแรงลดหย่อนได้ตามหลักเกณฑ์ของกรมสรรพากร</p></details>
-      <details><summary>CI Plus เบี้ยเท่าเดิมทุกปีไหม?</summary><p>ไม่ใช่ เบี้ย CI Plus ปรับขึ้นตามช่วงอายุทุก 5 ปี ถ้าอยากได้เบี้ยคงที่ เลือก CI SuperCare 20/99 ซึ่งเบี้ยเท่าเดิมตลอด 20 ปี ส่วนเบี้ย 20 Pay Life และ Senior Happy ก็คงที่ตลอดระยะเวลาชำระเบี้ย</p></details>
+      <details><summary>CI Plus เบี้ยเท่าเดิมทุกปีไหม?</summary><p>ไม่ใช่ เบี้ย CI Plus ปรับขึ้นตามช่วงอายุทุก 5 ปี ถ้าอยากได้เบี้ยคงที่ เลือก CI SuperCare ซึ่งเบี้ยเท่าเดิมตลอดระยะเวลาจ่าย (10 หรือ 20 ปี) ส่วนเบี้ย 20 Pay Life และ Senior Happy ก็คงที่ตลอดระยะเวลาชำระเบี้ย</p></details>
     </div>
   </section>
 
@@ -352,7 +355,7 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const fmt = (n) => n.toLocaleString('th-TH');
 const fmtSA = (n) => n >= 1000000 ? `${n / 1000000} ล้าน` : fmt(n);
 
-const state = { step: 1, goal: null, gender: 'M', age: 35, sa: 1000000, ciOn: false, ciSA: 1000000 };
+const state = { step: 1, goal: null, gender: 'M', age: 35, sa: 1000000, ciOn: false, ciSA: 1000000, scTerm: 20 };
 
 // ----- agent info -----
 $$('[data-agent-name]').forEach((el) => (el.textContent = CONFIG.agentName));
@@ -441,14 +444,14 @@ function quote() {
 
 const whoText = () => `${state.gender === 'M' ? 'ชาย' : 'หญิง'} อายุ ${state.age === 0 ? '15 วัน' : state.age + ' ปี'}`;
 
-// "illness" goal: 1) 20 Pay Life + CI Plus rider, 2) CI SuperCare 20/99 stand-alone
+// "illness" goal: 1) 20 Pay Life + CI Plus rider, 2) CI SuperCare 10/99 or 20/99 stand-alone
 function illnessOptions() {
   const { gender, age, sa } = state;
   const life = C.premiumPay20(gender, age, sa);
   const ci = C.premiumCI(gender, age, sa);
   return {
     combo: life !== null && ci !== null ? { life, ci, total: life + ci } : null,
-    supercare: C.premiumSuperCare20(gender, age, sa),
+    supercare: C.premiumSuperCare(state.scTerm, gender, age, sa),
   };
 }
 
@@ -477,19 +480,23 @@ function renderIllness() {
       <p class="note">เบี้ย CI Plus ปรับขึ้นตามช่วงอายุทุก 5 ปี</p>`)
     : off('แบบที่ 1', '20 Pay Life + CI Plus', '20 Pay Life รับอายุไม่เกิน 70 ปี');
 
+  const term = state.scTerm;
   html += o.supercare !== null ? card('supercare', `
       <div class="tag">แบบที่ 2 · เบี้ยคงที่</div>
-      <div class="plan-name">AIA CI SuperCare 20/99</div>
-      <div class="plan-sub">จ่าย 20 ปี · คุ้มครองโรคร้ายแรง 62 โรคถึงอายุ 99</div>
+      <div class="plan-name">AIA CI SuperCare ${term}/99</div>
+      <div class="plan-sub">จ่าย ${term} ปี · คุ้มครองโรคร้ายแรง 62 โรคถึงอายุ 99</div>
+      <div class="term-seg" role="group" aria-label="ระยะเวลาจ่ายเบี้ย">
+        ${C.PLANS.supercare.terms.map((t) => `<button type="button" data-term="${t}" aria-pressed="${t === term}">จ่าย ${t} ปี</button>`).join('')}
+      </div>
       <div class="price">${fmt(o.supercare)} ฿<span> /ปี</span></div>
-      <div class="perday">ตกวันละ ~${fmt(Math.round(o.supercare / 365))} บาท · เท่าเดิมทุกปี</div>
+      <div class="perday">ตกวันละ ~${fmt(Math.round(o.supercare / 365))} บาท · เท่าเดิมทุกปี · รวม ${term} ปี ${fmt(o.supercare * term)} บาท</div>
       <div class="rows">
         <div class="row"><span>ป่วยระยะเริ่มต้น รับ</span><b>${fmt(state.sa * 0.2)} ฿</b></div>
         <div class="row"><span>ป่วยระยะรุนแรง / เสียชีวิต รับ</span><b>${sa} ฿</b></div>
         <div class="row"><span>อยู่ครบอายุ 99 รับคืน</span><b>${sa} ฿</b></div>
       </div>
       <p class="note">จ่ายรวมสูงสุด 100% ของทุน (หักส่วนที่จ่ายระยะเริ่มต้นไปแล้ว)</p>`)
-    : off('แบบที่ 2', 'AIA CI SuperCare 20/99', 'รับอายุไม่เกิน 65 ปี');
+    : off('แบบที่ 2', 'AIA CI SuperCare', 'รับอายุไม่เกิน 65 ปี');
 
   if (!o.combo && o.supercare === null) {
     html += `<div class="result-card"><div class="plan-name">ทักมาคุยกันก่อนนะคะ</div><p class="note">สำหรับอายุ ${state.age} ปี มีแผนอื่นที่เหมาะกว่า แอด LINE เพื่อให้ช่วยเลือกแผนให้ฟรี</p></div>`;
@@ -500,8 +507,14 @@ function renderIllness() {
   $$('[data-choice]').forEach((el) => {
     const pick = () => { state.choice = el.dataset.choice; renderIllness(); };
     el.addEventListener('click', pick);
-    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+    el.addEventListener('keydown', (e) => { if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pick(); } });
   });
+  $$('[data-term]').forEach((b) => b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    state.scTerm = +b.dataset.term;
+    state.choice = 'supercare';
+    renderIllness();
+  }));
 }
 
 function renderResult() {
@@ -555,7 +568,7 @@ function summaryText() {
     if (state.choice === 'combo') {
       head.push(`• แบบที่ 1: 20 Pay Life + CI Plus ทุน ${fmt(state.sa)} บาท`, `• เบี้ยปีแรกประมาณ ${fmt(o.combo.total)} บาท`);
     } else if (state.choice === 'supercare') {
-      head.push(`• แบบที่ 2: CI SuperCare 20/99 ทุน ${fmt(state.sa)} บาท`, `• เบี้ยประมาณ ${fmt(o.supercare)} บาท/ปี`);
+      head.push(`• แบบที่ 2: CI SuperCare ${state.scTerm}/99 (จ่าย ${state.scTerm} ปี) ทุน ${fmt(state.sa)} บาท`, `• เบี้ยประมาณ ${fmt(o.supercare)} บาท/ปี`);
     }
     return head.join('\n');
   }

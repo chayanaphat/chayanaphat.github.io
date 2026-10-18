@@ -34,18 +34,27 @@ assert.strictEqual(c.premiumCI('F', 75, 500000), 36760);
 assert.strictEqual(c.premiumCI('M', 76, 1000000), null);
 
 // CI SuperCare 20/99 — brochure case study: male 40, 1M → 44,180
-assert.strictEqual(c.supercareDiscount(499999), 0);
-assert.strictEqual(c.supercareDiscount(500000), 0.5);
-assert.strictEqual(c.supercareDiscount(800000), 1);
-assert.strictEqual(c.supercareDiscount(1000000), 1.5);
-assert.strictEqual(c.supercareDiscount(5000000), 2);
-assert.strictEqual(c.premiumSuperCare20('M', 35, 1000000), 40070);
-assert.strictEqual(c.premiumSuperCare20('M', 40, 1000000), 44180);
-assert.strictEqual(c.premiumSuperCare20('F', 0, 200000), 4084);
-assert.strictEqual(c.premiumSuperCare20('F', 65, 500000), 48040);
-assert.strictEqual(c.premiumSuperCare20('M', 66, 1000000), null);
-assert.strictEqual(c.premiumSuperCare20('M', 35, 199999), null);
-assert.strictEqual(c.premiumSuperCare20('M', 35, 5000000), 197850);
-assert.strictEqual(c.premiumSuperCare20('M', 35, 15000001), null);
+assert.strictEqual(c.supercareDiscount(20, 499999), 0);
+assert.strictEqual(c.supercareDiscount(20, 500000), 0.5);
+assert.strictEqual(c.supercareDiscount(20, 800000), 1);
+assert.strictEqual(c.supercareDiscount(20, 1000000), 1.5);
+assert.strictEqual(c.supercareDiscount(20, 5000000), 2);
+assert.strictEqual(c.premiumSuperCare(20, 'M', 35, 1000000), 40070);
+assert.strictEqual(c.premiumSuperCare(20, 'M', 40, 1000000), 44180);
+assert.strictEqual(c.premiumSuperCare(20, 'F', 0, 200000), 4084);
+assert.strictEqual(c.premiumSuperCare(20, 'F', 65, 500000), 48040);
+assert.strictEqual(c.premiumSuperCare(20, 'M', 66, 1000000), null);
+assert.strictEqual(c.premiumSuperCare(20, 'M', 35, 199999), null);
+assert.strictEqual(c.premiumSuperCare(20, 'M', 35, 5000000), 197850);
+assert.strictEqual(c.premiumSuperCare(20, 'M', 35, 15000001), null);
+
+// CI SuperCare 10/99 (same brochure)
+assert.strictEqual(c.supercareDiscount(10, 999999), 0);
+assert.strictEqual(c.supercareDiscount(10, 1000000), 2.5);
+assert.strictEqual(c.supercareDiscount(10, 5000000), 3.5);
+assert.strictEqual(c.premiumSuperCare(10, 'M', 35, 1000000), 69130);
+assert.strictEqual(c.premiumSuperCare(10, 'F', 65, 500000), 67660);
+assert.strictEqual(c.premiumSuperCare(10, 'M', 66, 1000000), null);
+assert.strictEqual(c.premiumSuperCare(15, 'M', 35, 1000000), null);
 
 console.log('All calculator checks passed');
