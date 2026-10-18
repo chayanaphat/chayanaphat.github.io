@@ -61,8 +61,6 @@
     senior: { minAge: 50, maxAge: 70, minSA: 50000, maxSA: 200000, sumAssured: [50000, 100000, 150000, 200000] },
     ci: { minAge: 0, maxAge: 75, sumAssured: [500000, 1000000, 2000000, 3000000, 5000000] },
     supercare: { minAge: 0, maxAge: 65, minSA: 200000, maxSA: 15000000, terms: [20, 10] }, // max 5M for people without income
-    // Choices for the "illness" goal: valid for 20 Pay Life, CI Plus and CI SuperCare alike
-    illness: { sumAssured: [500000, 1000000, 2000000, 3000000] },
   };
 
   function pay20Discount(sa) {

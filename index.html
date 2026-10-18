@@ -416,7 +416,7 @@ $$('[data-age-step]').forEach((b) => b.addEventListener('click', () => setAge(st
 function renderSA() {
   const senior = state.goal === 'senior';
   const illness = state.goal === 'illness';
-  const list = (senior ? C.PLANS.senior : illness ? C.PLANS.illness : C.PLANS.pay20).sumAssured;
+  const list = (senior ? C.PLANS.senior : C.PLANS.pay20).sumAssured;
   $('#saTitle').textContent = senior ? 'อยากมีเงินก้อนไว้ให้ลูกหลานเท่าไร?'
     : illness ? 'ถ้าป่วยโรคร้ายแรง อยากได้เงินก้อนเท่าไร?'
     : 'อยากให้ครอบครัวได้รับเงินเท่าไร?';
@@ -496,10 +496,12 @@ function renderIllness() {
         <div class="row"><span>อยู่ครบอายุ 99 รับคืน</span><b>${sa} ฿</b></div>
       </div>
       <p class="note">จ่ายรวมสูงสุด 100% ของทุน (หักส่วนที่จ่ายระยะเริ่มต้นไปแล้ว)</p>`)
-    : off('แบบที่ 2', 'AIA CI SuperCare', 'รับอายุไม่เกิน 65 ปี');
+    : off('แบบที่ 2', 'AIA CI SuperCare', state.sa < C.PLANS.supercare.minSA
+      ? `ทุนขั้นต่ำ ${fmt(C.PLANS.supercare.minSA)} บาท ลองเลือกทุนที่สูงขึ้น`
+      : `รับอายุไม่เกิน ${C.PLANS.supercare.maxAge} ปี`);
 
   if (!o.combo && o.supercare === null) {
-    html += `<div class="result-card"><div class="plan-name">ทักมาคุยกันก่อนนะคะ</div><p class="note">สำหรับอายุ ${state.age} ปี มีแผนอื่นที่เหมาะกว่า แอด LINE เพื่อให้ช่วยเลือกแผนให้ฟรี</p></div>`;
+    html += `<div class="result-card"><div class="plan-name">ทักมาคุยกันก่อนนะคะ</div><p class="note">สำหรับ${whoText()} ทุน ${sa} บาท มีแผนอื่นที่เหมาะกว่า แอด LINE เพื่อให้ช่วยเลือกแผนให้ฟรี</p></div>`;
   }
 
   $('#result').innerHTML = html;
