@@ -1,7 +1,7 @@
 // Premium calculator for AIA plans.
 // Sources:
 //   20 Pay Life  — AIA 20PLNP_TH_01072022.pdf (rate table, page 5); re-checked against AIA rate book 02/2025
-//   Senior Happy — AIA rate book 02/2025 (matches brochure examples)
+//   Senior Happy — public brochure SU0215389 (01/01/2023), rate table p.4
 //   CI Plus      — AIA CI Plus brochure rate page (ci-plus.jpg); age-banded, renewable
 //   CI SuperCare 10/99 & 20/99 — public brochure SU0215396 (01/01/2023), total premium column
 (function (root) {
