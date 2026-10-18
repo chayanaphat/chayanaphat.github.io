@@ -475,7 +475,7 @@ function renderIllness() {
         <div class="row"><span>ชีวิต ${fmt(o.combo.life)} + CI Plus ${fmt(o.combo.ci)}</span></div>
       </div>
       <p class="note">เบี้ย CI Plus ปรับขึ้นตามช่วงอายุทุก 5 ปี</p>`)
-    : off('แบบที่ 1', '20 Pay Life + CI Plus', 'ไม่มีอัตราเบี้ย CI Plus สำหรับอายุเกิน 60 ปี');
+    : off('แบบที่ 1', '20 Pay Life + CI Plus', '20 Pay Life รับอายุไม่เกิน 70 ปี');
 
   html += o.supercare !== null ? card('supercare', `
       <div class="tag">แบบที่ 2 · เบี้ยคงที่</div>
@@ -534,7 +534,7 @@ function renderResult() {
         <p class="note">เบี้ย CI Plus ปรับตามช่วงอายุทุก 5 ปี</p>` : ''}
       </div>`;
     } else {
-      html += `<div class="addon"><div class="t" style="font-size:14px">อายุเกิน 60 ปี สนใจคุ้มครองโรคร้ายแรง ทัก LINE เพื่อสอบถามเบี้ย</div></div>`;
+      html += `<div class="addon"><div class="t" style="font-size:14px">อายุเกิน ${C.PLANS.ci.maxAge} ปี สนใจคุ้มครองโรคร้ายแรง ทัก LINE เพื่อสอบถามเบี้ย</div></div>`;
     }
     if (q.ci) html += `<div class="total"><span>รวมต่อปี</span><b>${fmt(total)} ฿</b></div>`;
   }

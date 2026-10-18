@@ -27,7 +27,11 @@ assert.strictEqual(c.premiumCI('M', 35, 1000000), 3840);
 assert.strictEqual(c.premiumCI('M', 36, 1000000), 5230);
 assert.strictEqual(c.premiumCI('F', 0, 1000000), 2270);
 assert.strictEqual(c.premiumCI('F', 60, 1000000), 26090);
-assert.strictEqual(c.premiumCI('M', 61, 1000000), null);
+assert.strictEqual(c.premiumCI('M', 61, 1000000), 61040);
+assert.strictEqual(c.premiumCI('F', 70, 1000000), 51710);
+assert.strictEqual(c.premiumCI('M', 75, 1000000), 112640);
+assert.strictEqual(c.premiumCI('F', 75, 500000), 36760);
+assert.strictEqual(c.premiumCI('M', 76, 1000000), null);
 
 // CI SuperCare 20/99 — matches the public aia-fa.com examples (40,070 and 44,180 per 1M)
 assert.strictEqual(c.supercareDiscount(499999), 0);
