@@ -32,6 +32,8 @@ assert.strictEqual(c.premiumCI('F', 70, 1000000), 51710);
 assert.strictEqual(c.premiumCI('M', 75, 1000000), 112640);
 assert.strictEqual(c.premiumCI('F', 75, 500000), 36760);
 assert.strictEqual(c.premiumCI('M', 76, 1000000), null);
+assert.strictEqual(c.premiumCI('M', 35, 100000), 384);
+assert.strictEqual(c.premiumCI('M', 35, 99999), null);
 
 // CI SuperCare 20/99 — brochure case study: male 40, 1M → 44,180
 assert.strictEqual(c.supercareDiscount(20, 499999), 0);
