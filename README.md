@@ -2,7 +2,7 @@
 
 Mobile-first landing page for an AIA agent (link in TikTok / Facebook bio). Visitors answer 3 questions and see an estimated premium, then add the agent on LINE.
 
-Live: https://topworamet.github.io/aia/
+Live: https://chayanaphat.github.io/
 
 ## Layout
 
