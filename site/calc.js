@@ -1,8 +1,8 @@
 // Premium calculator for AIA plans.
 // Sources:
-//   20 Pay Life  — AIA 20PLNP_TH_01072022.pdf (rate table, page 5); re-checked against AIA rate book 02/2025
+//   20 Pay Life  — public brochure SU0215429 (01/07/2022), rate table p.5
 //   Senior Happy — public brochure SU0215389 (01/01/2023), rate table p.4
-//   CI Plus      — AIA CI Plus brochure rate page (ci-plus.jpg); age-banded, renewable
+//   CI Plus      — public brochure SU0215465 (07/2025) rate page; age-banded, renewable
 //   CI SuperCare 10/99 & 20/99 — public brochure SU0215396 (01/01/2023), total premium column
 (function (root) {
   // Index = age (0 = 15 days – under 1 year), per 1,000 baht sum assured
