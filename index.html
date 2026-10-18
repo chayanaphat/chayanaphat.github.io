@@ -92,6 +92,14 @@
   .total{background:var(--ink);color:#fff;border-radius:12px;padding:10px 12px;margin-top:12px;display:flex;justify-content:space-between;align-items:baseline}
   .total b{font-family:Prompt,sans-serif;font-size:20px}
 
+  .pick-hint{font-size:13px;opacity:.9;margin:-4px 0 10px}
+  .choice{position:relative;margin-bottom:12px;cursor:pointer;border:3px solid transparent;transition:border-color .15s}
+  .choice::after{content:"";position:absolute;top:16px;right:16px;width:22px;height:22px;border-radius:50%;border:2px solid #d6d6dc;background:#fff}
+  .choice.on{border-color:#ffd24d}
+  .choice.on::after{border-color:var(--red);background:var(--red);box-shadow:inset 0 0 0 4px #fff}
+  .choice.off{cursor:default;opacity:.85}
+  .choice.off::after{display:none}
+  .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--red);background:var(--red-soft);padding:3px 10px;border-radius:999px;margin-bottom:6px}
   .btn-line{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px;border-radius:16px;background:var(--line);color:#fff;font-size:17px;font-weight:700;text-decoration:none;margin-top:14px;box-shadow:0 8px 20px rgba(6,199,85,.35)}
   .btn-line svg{width:24px;height:24px}
   .redo{display:block;margin:12px auto 0;font-size:14px;opacity:.85;text-decoration:underline}
@@ -164,7 +172,7 @@
         <div class="kicker">คำถาม 1 / 3 · ฟรี ไม่ต้องกรอกเบอร์</div>
         <h1>คุณอยากให้ประกัน<br>ช่วยเรื่องอะไรมากที่สุด?</h1>
         <button class="opt" data-goal="family"><span class="emo">👨‍👩‍👧</span><span>ดูแลครอบครัว ถ้าเราไม่อยู่<small>ประกันชีวิตตลอดชีพ จ่ายแค่ 20 ปี</small></span></button>
-        <button class="opt" data-goal="illness"><span class="emo">🏥</span><span>มีเงินก้อน ถ้าป่วยโรคร้าย<small>เจอ จ่าย จบ 44 โรคร้ายแรง</small></span></button>
+        <button class="opt" data-goal="illness"><span class="emo">🏥</span><span>มีเงินก้อน ถ้าป่วยโรคร้าย<small>เจอ จ่ายเงินก้อน · มี 2 แบบให้เลือก</small></span></button>
         <button class="opt" data-goal="senior"><span class="emo">👵</span><span>อายุ 50+ ไม่อยากเป็นภาระลูก<small>ไม่ต้องตรวจสุขภาพ เริ่มวันละ 7 บาท</small></span></button>
         <div class="scroll-hint">ตอบ 3 ข้อ รู้เบี้ยทันที · เลื่อนลงดูแผนทั้งหมด ↓</div>
       </div>
@@ -202,7 +210,7 @@
       <div class="step" data-step="4">
         <div class="kicker">✨ แผนที่เหมาะกับคุณ</div>
         <div style="height:12px"></div>
-        <div class="result-card" id="result"></div>
+        <div id="result"></div>
         <a class="btn-line" href="#" data-line>
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 5.64 2 10.12c0 4.01 3.56 7.37 8.37 8.01.33.07.77.22.88.5.1.25.07.65.03.9l-.14.86c-.04.25-.2.99.87.54 1.07-.45 5.76-3.39 7.86-5.81C21.33 13.53 22 11.9 22 10.12 22 5.64 17.52 2 12 2z"/></svg>
           <span id="lineLabel">แอด LINE รับใบเสนอราคาจริง</span>
@@ -233,7 +241,7 @@
   <!-- ================= PLANS ================= -->
   <section class="sec" style="padding-top:0">
     <div class="wrap">
-      <h2>3 แผนที่ช่วยคุณได้</h2>
+      <h2>4 แผนที่ช่วยคุณได้</h2>
       <p class="lead">เลือกตามช่วงชีวิตและความกังวลของคุณ</p>
       <div class="plans">
         <div class="plan">
@@ -259,6 +267,17 @@
           <div class="from">ตัวอย่าง: ชาย 35 ปี ทุน 1 ล้าน <b>3,840 บาท/ปี</b></div>
         </div>
         <div class="plan">
+          <div class="for">โรคร้ายแรง · เบี้ยคงที่</div>
+          <h3>AIA CI SuperCare 20/99</h3>
+          <ul>
+            <li>จ่ายเบี้ย 20 ปี เบี้ยเท่าเดิมทุกปี</li>
+            <li>ครอบคลุม 62 โรค รวมระยะเริ่มต้น (รับ 20%)</li>
+            <li>ระยะรุนแรงหรือเสียชีวิต รับ 100% ของทุน</li>
+            <li>อยู่ครบอายุ 99 รับเงินคืน · รับอายุถึง 65 ปี</li>
+          </ul>
+          <div class="from">ตัวอย่าง: ชาย 35 ปี ทุน 1 ล้าน <b>40,070 บาท/ปี</b></div>
+        </div>
+        <div class="plan">
           <div class="for">อายุ 50–70 ปี</div>
           <h3>AIA Senior Happy</h3>
           <ul>
@@ -281,7 +300,7 @@
       <details><summary>เบี้ยที่คำนวณได้ คือราคาจริงไหม?</summary><p>เป็นเบี้ยมาตรฐานจากตารางอัตราของ AIA สำหรับผู้มีสุขภาพปกติ เบี้ยจริงอาจต่างไปตามผลพิจารณาสุขภาพและอาชีพ แอด LINE เพื่อรับใบเสนอราคาที่ถูกต้อง</p></details>
       <details><summary>มีโรคประจำตัว ทำได้ไหม?</summary><p>แผน Senior Happy (อายุ 50–70) ไม่ต้องตรวจและไม่ต้องตอบคำถามสุขภาพ ส่วนแผนอื่นขึ้นกับการพิจารณาของบริษัท ทักมาเล่าอาการได้เลย จะช่วยดูแผนที่เป็นไปได้ให้</p></details>
       <details><summary>เบี้ยประกันลดหย่อนภาษีได้ไหม?</summary><p>เบี้ยประกันชีวิตลดหย่อนได้สูงสุด 100,000 บาท ส่วนเบี้ยสุขภาพ/โรคร้ายแรงลดหย่อนได้ตามหลักเกณฑ์ของกรมสรรพากร</p></details>
-      <details><summary>CI Plus เบี้ยเท่าเดิมทุกปีไหม?</summary><p>ไม่ใช่ เบี้ย CI Plus ปรับขึ้นตามช่วงอายุทุก 5 ปี ส่วนเบี้ย 20 Pay Life และ Senior Happy คงที่ตลอดระยะเวลาชำระเบี้ย</p></details>
+      <details><summary>CI Plus เบี้ยเท่าเดิมทุกปีไหม?</summary><p>ไม่ใช่ เบี้ย CI Plus ปรับขึ้นตามช่วงอายุทุก 5 ปี ถ้าอยากได้เบี้ยคงที่ เลือก CI SuperCare 20/99 ซึ่งเบี้ยเท่าเดิมตลอด 20 ปี ส่วนเบี้ย 20 Pay Life และ Senior Happy ก็คงที่ตลอดระยะเวลาชำระเบี้ย</p></details>
     </div>
   </section>
 
@@ -364,6 +383,7 @@ $$('[data-next]').forEach((b) => b.addEventListener('click', () => go(state.step
 $$('[data-goal]').forEach((b) => b.addEventListener('click', () => {
   state.goal = b.dataset.goal;
   state.ciOn = state.goal === 'illness';
+  state.choice = null;
   const plan = state.goal === 'senior' ? C.PLANS.senior : C.PLANS.pay20;
   const ageEl = $('#age');
   ageEl.min = plan.minAge; ageEl.max = plan.maxAge;
@@ -392,10 +412,13 @@ $$('[data-age-step]').forEach((b) => b.addEventListener('click', () => setAge(st
 // ----- step 3 -----
 function renderSA() {
   const senior = state.goal === 'senior';
-  const list = (senior ? C.PLANS.senior : C.PLANS.pay20).sumAssured;
-  $('#saTitle').textContent = senior ? 'อยากมีเงินก้อนไว้ให้ลูกหลานเท่าไร?' : 'อยากให้ครอบครัวได้รับเงินเท่าไร?';
-  $('#saTip').textContent = senior
-    ? '💡 Senior Happy ทำได้สูงสุด 200,000 บาทต่อคน ไม่ต้องตรวจสุขภาพ'
+  const illness = state.goal === 'illness';
+  const list = (senior ? C.PLANS.senior : illness ? C.PLANS.illness : C.PLANS.pay20).sumAssured;
+  $('#saTitle').textContent = senior ? 'อยากมีเงินก้อนไว้ให้ลูกหลานเท่าไร?'
+    : illness ? 'ถ้าป่วยโรคร้ายแรง อยากได้เงินก้อนเท่าไร?'
+    : 'อยากให้ครอบครัวได้รับเงินเท่าไร?';
+  $('#saTip').textContent = senior ? '💡 Senior Happy ทำได้สูงสุด 200,000 บาทต่อคน ไม่ต้องตรวจสุขภาพ'
+    : illness ? '💡 ค่ารักษามะเร็งระยะลุกลามใน รพ.เอกชน เริ่มต้นประมาณ 6 แสน – 1 ล้านบาท'
     : '💡 คนส่วนใหญ่เลือกทุน 5–10 เท่าของรายได้ต่อปี';
   $('#saChips').innerHTML = list.map((v) => `<button data-sa="${v}" aria-pressed="${v === state.sa}">${fmtSA(v)}</button>`).join('');
   $$('[data-sa]').forEach((b) => b.addEventListener('click', () => {
@@ -416,11 +439,77 @@ function quote() {
   return { name: 'AIA 20 Pay Life', sub: 'จ่ายเบี้ย 20 ปี · คุ้มครองตลอดชีพถึงอายุ 99', main, ci, ciAllowed };
 }
 
+const whoText = () => `${state.gender === 'M' ? 'ชาย' : 'หญิง'} อายุ ${state.age === 0 ? '15 วัน' : state.age + ' ปี'}`;
+
+// "illness" goal: 1) 20 Pay Life + CI Plus rider, 2) CI SuperCare 20/99 stand-alone
+function illnessOptions() {
+  const { gender, age, sa } = state;
+  const life = C.premiumPay20(gender, age, sa);
+  const ci = C.premiumCI(gender, age, sa);
+  return {
+    combo: life !== null && ci !== null ? { life, ci, total: life + ci } : null,
+    supercare: C.premiumSuperCare20(gender, age, sa),
+  };
+}
+
+function renderIllness() {
+  const o = illnessOptions();
+  const sa = fmt(state.sa);
+  const valid = (k) => (k === 'combo' ? !!o.combo : k === 'supercare' ? o.supercare !== null : false);
+  if (!valid(state.choice)) state.choice = o.combo ? 'combo' : o.supercare !== null ? 'supercare' : null;
+  const card = (key, body) => `<div class="result-card choice${state.choice === key ? ' on' : ''}" data-choice="${key}" role="radio" aria-checked="${state.choice === key}" tabindex="0">${body}</div>`;
+  const off = (tag, name, msg) => `<div class="result-card choice off"><div class="tag">${tag}</div><div class="plan-name">${name}</div><p class="note">${msg}</p></div>`;
+
+  let html = '';
+  if (o.combo || o.supercare !== null) html += `<p class="pick-hint">แตะเพื่อเลือกแบบที่สนใจ · ${whoText()} · ทุน ${sa} ฿</p>`;
+
+  html += o.combo ? card('combo', `
+      <div class="tag">แบบที่ 1 · คุ้มครอง 2 ต่อ</div>
+      <div class="plan-name">20 Pay Life + CI Plus</div>
+      <div class="plan-sub">ประกันชีวิต + สัญญาเพิ่มเติมโรคร้ายแรง 44 โรค</div>
+      <div class="price">${fmt(o.combo.total)} ฿<span> /ปี (ปีแรก)</span></div>
+      <div class="perday">ตกวันละ ~${fmt(Math.round(o.combo.total / 365))} บาท</div>
+      <div class="rows">
+        <div class="row"><span>ป่วยโรคร้ายแรง รับ</span><b>${sa} ฿</b></div>
+        <div class="row"><span>เสียชีวิต ครอบครัวรับอีก</span><b>${sa} ฿</b></div>
+        <div class="row"><span>ชีวิต ${fmt(o.combo.life)} + CI Plus ${fmt(o.combo.ci)}</span></div>
+      </div>
+      <p class="note">เบี้ย CI Plus ปรับขึ้นตามช่วงอายุทุก 5 ปี</p>`)
+    : off('แบบที่ 1', '20 Pay Life + CI Plus', 'ไม่มีอัตราเบี้ย CI Plus สำหรับอายุเกิน 60 ปี');
+
+  html += o.supercare !== null ? card('supercare', `
+      <div class="tag">แบบที่ 2 · เบี้ยคงที่</div>
+      <div class="plan-name">AIA CI SuperCare 20/99</div>
+      <div class="plan-sub">จ่าย 20 ปี · คุ้มครองโรคร้ายแรง 62 โรคถึงอายุ 99</div>
+      <div class="price">${fmt(o.supercare)} ฿<span> /ปี</span></div>
+      <div class="perday">ตกวันละ ~${fmt(Math.round(o.supercare / 365))} บาท · เท่าเดิมทุกปี</div>
+      <div class="rows">
+        <div class="row"><span>ป่วยระยะเริ่มต้น รับ</span><b>${fmt(state.sa * 0.2)} ฿</b></div>
+        <div class="row"><span>ป่วยระยะรุนแรง / เสียชีวิต รับ</span><b>${sa} ฿</b></div>
+        <div class="row"><span>อยู่ครบอายุ 99 รับคืน</span><b>${sa} ฿</b></div>
+      </div>
+      <p class="note">จ่ายรวมสูงสุด 100% ของทุน (หักส่วนที่จ่ายระยะเริ่มต้นไปแล้ว)</p>`)
+    : off('แบบที่ 2', 'AIA CI SuperCare 20/99', 'รับอายุไม่เกิน 65 ปี');
+
+  if (!o.combo && o.supercare === null) {
+    html += `<div class="result-card"><div class="plan-name">ทักมาคุยกันก่อนนะคะ</div><p class="note">สำหรับอายุ ${state.age} ปี มีแผนอื่นที่เหมาะกว่า แอด LINE เพื่อให้ช่วยเลือกแผนให้ฟรี</p></div>`;
+  }
+
+  $('#result').innerHTML = html;
+  $('#lineLabel').textContent = state.choice ? 'แอด LINE รับใบเสนอราคาแบบที่เลือก' : 'แอด LINE ปรึกษาฟรี';
+  $$('[data-choice]').forEach((el) => {
+    const pick = () => { state.choice = el.dataset.choice; renderIllness(); };
+    el.addEventListener('click', pick);
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+}
+
 function renderResult() {
+  if (state.goal === 'illness') return renderIllness();
   const q = quote();
   const total = q.main + (q.ci || 0);
   const senior = state.goal === 'senior';
-  const who = `${state.gender === 'M' ? 'ชาย' : 'หญิง'} อายุ ${state.age === 0 ? '15 วัน' : state.age + ' ปี'}`;
+  const who = whoText();
 
   let html = `
     <div class="plan-name">${q.name}</div>
@@ -450,7 +539,7 @@ function renderResult() {
     if (q.ci) html += `<div class="total"><span>รวมต่อปี</span><b>${fmt(total)} ฿</b></div>`;
   }
 
-  $('#result').innerHTML = html;
+  $('#result').innerHTML = `<div class="result-card">${html}</div>`;
   $('#lineLabel').textContent = senior ? 'แอด LINE ปรึกษาเรื่องประกันผู้สูงอายุ' : 'แอด LINE รับใบเสนอราคาจริง';
 
   const t = $('#ciToggle');
@@ -460,6 +549,16 @@ function renderResult() {
 
 function summaryText() {
   if (!state.goal) return 'สวัสดีค่ะ สนใจปรึกษาเรื่องประกัน AIA';
+  if (state.goal === 'illness') {
+    const o = illnessOptions();
+    const head = ['สวัสดีค่ะ สนใจประกันโรคร้ายแรง ขอใบเสนอราคาค่ะ', `• ${whoText()}`];
+    if (state.choice === 'combo') {
+      head.push(`• แบบที่ 1: 20 Pay Life + CI Plus ทุน ${fmt(state.sa)} บาท`, `• เบี้ยปีแรกประมาณ ${fmt(o.combo.total)} บาท`);
+    } else if (state.choice === 'supercare') {
+      head.push(`• แบบที่ 2: CI SuperCare 20/99 ทุน ${fmt(state.sa)} บาท`, `• เบี้ยประมาณ ${fmt(o.supercare)} บาท/ปี`);
+    }
+    return head.join('\n');
+  }
   const q = quote();
   const lines = [
     'สวัสดีค่ะ สนใจแผนนี้ ขอใบเสนอราคาค่ะ',

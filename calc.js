@@ -3,6 +3,7 @@
 //   20 Pay Life  — AIA 20PLNP_TH_01072022.pdf (rate table, page 5); re-checked against AIA rate book 02/2025
 //   Senior Happy — AIA rate book 02/2025 (matches aia-fa.com and brochure examples)
 //   CI Plus      — aia-fa.com/aia-ci-plus (age-banded, renewable); not yet verified against an AIA rate book
+//   CI SuperCare 20/99 — AIA rate book 02/2025 (total premium column)
 (function (root) {
   // Index = age (0 = 15 days – under 1 year), per 1,000 baht sum assured
   const PAY20 = {
@@ -28,10 +29,25 @@
     [40, 5.23, 4.60], [45, 10.19, 6.38], [50, 15.92, 10.17], [55, 25.38, 15.92], [60, 42.31, 26.09],
   ];
 
+  // Index = age (0 = 15 days – under 1 year), level premium paid 20 years
+  const SUPERCARE20 = {
+    M: [22.20, 22.46, 22.73, 23.02, 23.33, 23.65, 23.99, 24.35, 24.73, 25.12, 25.53, 25.94, 26.37, 26.80, 27.24, 27.70, 28.15, 28.62, 29.12, 29.63,
+      30.16, 30.72, 31.31, 31.91, 32.54, 33.19, 33.86, 34.55, 35.28, 36.05, 36.85, 37.70, 38.59, 39.53, 40.52, 41.57, 42.28, 43.04, 43.86, 44.74,
+      45.68, 46.65, 47.63, 48.62, 49.65, 50.72, 52.82, 55.08, 57.52, 60.13, 62.92, 65.93, 69.10, 72.48, 76.04, 79.72, 83.55, 87.51, 91.65, 96.02,
+      100.65, 105.58, 110.82, 116.36, 122.25, 128.52],
+    F: [20.42, 20.63, 20.85, 21.09, 21.35, 21.61, 21.89, 22.19, 22.49, 22.81, 23.14, 23.59, 24.06, 24.54, 25.04, 25.54, 26.06, 26.48, 26.94, 27.42,
+      27.92, 28.43, 28.96, 29.50, 30.06, 30.64, 31.25, 31.88, 32.53, 33.21, 33.91, 34.64, 35.39, 36.16, 36.96, 37.78, 38.62, 39.50, 40.43, 41.41,
+      42.45, 43.63, 44.85, 46.11, 47.41, 48.76, 50.18, 51.68, 53.27, 54.94, 56.71, 58.57, 60.52, 62.56, 64.69, 66.91, 69.21, 71.59, 74.08, 76.70,
+      79.47, 82.44, 85.61, 89.01, 92.65, 96.58],
+  };
+
   const PLANS = {
     pay20: { minAge: 0, maxAge: 70, minSA: 100000, sumAssured: [100000, 300000, 500000, 1000000, 2000000, 3000000, 5000000] },
     senior: { minAge: 50, maxAge: 70, minSA: 50000, maxSA: 200000, sumAssured: [50000, 100000, 150000, 200000] },
     ci: { minAge: 0, maxAge: 60, sumAssured: [500000, 1000000, 2000000, 3000000, 5000000] },
+    supercare20: { minAge: 0, maxAge: 65, minSA: 200000, maxSA: 4999999 },
+    // Choices for the "illness" goal: valid for 20 Pay Life, CI Plus and CI SuperCare alike
+    illness: { sumAssured: [500000, 1000000, 2000000, 3000000] },
   };
 
   function pay20Discount(sa) {
@@ -58,7 +74,21 @@
     return Math.round((gender === 'M' ? band[1] : band[2]) * sa / 1000);
   }
 
-  const api = { PLANS, pay20Discount, premiumPay20, premiumSenior, premiumCI };
+  function supercareDiscount(sa) {
+    if (sa >= 1000000) return 1.5;
+    if (sa >= 800000) return 1;
+    if (sa >= 500000) return 0.5;
+    return 0;
+  }
+
+  function premiumSuperCare20(gender, age, sa) {
+    const rate = SUPERCARE20[gender][age];
+    const p = PLANS.supercare20;
+    if (rate === undefined || sa < p.minSA || sa > p.maxSA) return null;
+    return Math.round((rate - supercareDiscount(sa)) * sa / 1000);
+  }
+
+  const api = { PLANS, pay20Discount, premiumPay20, premiumSenior, premiumCI, supercareDiscount, premiumSuperCare20 };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.AIACalc = api;
 })(this);
