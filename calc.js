@@ -1,8 +1,8 @@
 // Premium calculator for AIA plans.
 // Sources:
-//   20 Pay Life  — AIA 20PLNP_TH_01072022.pdf (rate table, page 5)
-//   Senior Happy — aia-fa.com/aia-senior-happy (matches brochure examples)
-//   CI Plus      — aia-fa.com/aia-ci-plus (age-banded, renewable)
+//   20 Pay Life  — AIA 20PLNP_TH_01072022.pdf (rate table, page 5); re-checked against AIA rate book 02/2025
+//   Senior Happy — AIA rate book 02/2025 (matches aia-fa.com and brochure examples)
+//   CI Plus      — aia-fa.com/aia-ci-plus (age-banded, renewable); not yet verified against an AIA rate book
 (function (root) {
   // Index = age (0 = 15 days – under 1 year), per 1,000 baht sum assured
   const PAY20 = {
