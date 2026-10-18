@@ -3,7 +3,7 @@
 //   20 Pay Life  — AIA 20PLNP_TH_01072022.pdf (rate table, page 5); re-checked against AIA rate book 02/2025
 //   Senior Happy — AIA rate book 02/2025 (matches aia-fa.com and brochure examples)
 //   CI Plus      — AIA CI Plus brochure rate page (ci-plus.jpg); age-banded, renewable
-//   CI SuperCare 20/99 — AIA rate book 02/2025 (total premium column)
+//   CI SuperCare 20/99 — public brochure SU0215396 (01/01/2023), total premium column; same in rate book 02/2025
 (function (root) {
   // Index = age (0 = 15 days – under 1 year), per 1,000 baht sum assured
   const PAY20 = {
@@ -48,7 +48,7 @@
     pay20: { minAge: 0, maxAge: 70, minSA: 100000, sumAssured: [100000, 300000, 500000, 1000000, 2000000, 3000000, 5000000] },
     senior: { minAge: 50, maxAge: 70, minSA: 50000, maxSA: 200000, sumAssured: [50000, 100000, 150000, 200000] },
     ci: { minAge: 0, maxAge: 75, sumAssured: [500000, 1000000, 2000000, 3000000, 5000000] },
-    supercare20: { minAge: 0, maxAge: 65, minSA: 200000, maxSA: 4999999 },
+    supercare20: { minAge: 0, maxAge: 65, minSA: 200000, maxSA: 15000000 }, // max 5M for people without income
     // Choices for the "illness" goal: valid for 20 Pay Life, CI Plus and CI SuperCare alike
     illness: { sumAssured: [500000, 1000000, 2000000, 3000000] },
   };
@@ -78,6 +78,7 @@
   }
 
   function supercareDiscount(sa) {
+    if (sa >= 5000000) return 2;
     if (sa >= 1000000) return 1.5;
     if (sa >= 800000) return 1;
     if (sa >= 500000) return 0.5;

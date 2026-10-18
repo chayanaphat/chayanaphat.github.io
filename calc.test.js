@@ -33,17 +33,19 @@ assert.strictEqual(c.premiumCI('M', 75, 1000000), 112640);
 assert.strictEqual(c.premiumCI('F', 75, 500000), 36760);
 assert.strictEqual(c.premiumCI('M', 76, 1000000), null);
 
-// CI SuperCare 20/99 — matches the public aia-fa.com examples (40,070 and 44,180 per 1M)
+// CI SuperCare 20/99 — brochure case study: male 40, 1M → 44,180
 assert.strictEqual(c.supercareDiscount(499999), 0);
 assert.strictEqual(c.supercareDiscount(500000), 0.5);
 assert.strictEqual(c.supercareDiscount(800000), 1);
 assert.strictEqual(c.supercareDiscount(1000000), 1.5);
+assert.strictEqual(c.supercareDiscount(5000000), 2);
 assert.strictEqual(c.premiumSuperCare20('M', 35, 1000000), 40070);
 assert.strictEqual(c.premiumSuperCare20('M', 40, 1000000), 44180);
 assert.strictEqual(c.premiumSuperCare20('F', 0, 200000), 4084);
 assert.strictEqual(c.premiumSuperCare20('F', 65, 500000), 48040);
 assert.strictEqual(c.premiumSuperCare20('M', 66, 1000000), null);
 assert.strictEqual(c.premiumSuperCare20('M', 35, 199999), null);
-assert.strictEqual(c.premiumSuperCare20('M', 35, 5000000), null);
+assert.strictEqual(c.premiumSuperCare20('M', 35, 5000000), 197850);
+assert.strictEqual(c.premiumSuperCare20('M', 35, 15000001), null);
 
 console.log('All calculator checks passed');
