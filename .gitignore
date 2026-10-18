@@ -1,1 +1,4 @@
+# Not for git: AIA source documents (incl. agent-only rate book), notes, originals
+private/
+.superpowers/
 .DS_Store
