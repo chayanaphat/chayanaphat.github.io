@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>เช็กเบี้ยประกัน AIA ใน 3 ข้อ | ทราย AIA</title>
+<title>เช็กเบี้ยประกัน AIA ใน 3 ข้อ | {{AGENT_NICKNAME}} AIA</title>
 <meta name="description" content="ตอบ 3 ข้อ รู้เบี้ยประกันชีวิต โรคร้ายแรง และประกันผู้สูงอายุ AIA ทันที เริ่มต้นวันละ 7 บาท">
-<meta property="og:title" content="เช็กเบี้ยประกัน AIA ฟรีใน 3 ข้อ | ทราย ตัวแทนประกันชีวิต AIA">
+<meta property="og:title" content="เช็กเบี้ยประกัน AIA ฟรีใน 3 ข้อ | {{AGENT_NICKNAME}} {{AGENT_TITLE}}">
 <meta property="og:description" content="ตอบ 3 ข้อ รู้เบี้ยของคุณทันที ฟรี ไม่ต้องกรอกเบอร์">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://chayanaphat.github.io/">
-<meta property="og:image" content="https://chayanaphat.github.io/og.jpg?v=2">
+<meta property="og:url" content="{{SITE_URL}}">
+<meta property="og:image" content="{{SITE_URL}}{{OG_IMAGE}}?v={{OG_IMAGE_VERSION}}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="ประกันชีวิต AIA จัดแผนตามงบคุณ เช็กเบี้ยฟรีกับทราย ตัวแทนประกันชีวิต AIA">
+<meta property="og:image:alt" content="ประกันชีวิต AIA จัดแผนตามงบคุณ เช็กเบี้ยฟรีกับ{{AGENT_NICKNAME}} {{AGENT_TITLE}}">
 <meta property="og:locale" content="th_TH">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#d31145">
@@ -330,8 +330,8 @@
         <a class="btn-line" href="#" data-line><span>แอด LINE ปรึกษาฟรี</span></a>
         <a class="btn-call" data-tel href="#">📞 โทร <span data-phone></span></a>
         <div class="qr">
-          <img src="qr.png" alt="QR Code LINE @508crxxl" width="160" height="160">
-          <p>หรือสแกน QR · LINE <b>@508crxxl</b></p>
+          <img src="{{LINE_QR}}" alt="QR Code LINE {{LINE_OA_ID}}" width="160" height="160">
+          <p>หรือสแกน QR · LINE <b>{{LINE_OA_ID}}</b></p>
         </div>
       </div>
     </div>
@@ -350,21 +350,8 @@
 
 <script src="calc.js"></script>
 <script>
-// ===== EDIT ME: agent details =====
-const CONFIG = {
-  agentName: 'คุณชญาณ์ณภัทร กาตะคุ (ทราย)',
-  agentShort: 'ทราย AIA',           // shown in the small top bar
-  agentTitle: 'ตัวแทนประกันชีวิต AIA',
-  license: 'ใบอนุญาตตัวแทนเลขที่ 6801061062',
-  photo: 'profile.jpg',            // file next to index.html
-  badges: ['ปรึกษาฟรี', 'ตอบไวใน LINE', 'ดูแลหลังการขาย'],
-  // LINE Official Account ID (starts with @) pre-fills the chat with the quote.
-  // Without it, lineUrl is opened and the quote is copied to the clipboard instead.
-  lineOA: '@508crxxl',
-  lineUrl: 'https://lin.ee/PV6nBur',
-  phone: '098-450-4663',
-};
-// ==================================
+// Agent details are filled in at build time from .env / GitHub repo Variables (see scripts/build.mjs)
+const CONFIG = {{CONFIG_JSON}};
 
 const C = window.AIACalc;
 const $ = (s, el = document) => el.querySelector(s);

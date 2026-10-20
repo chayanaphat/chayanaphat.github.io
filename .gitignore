@@ -3,3 +3,5 @@ private/
 .superpowers/
 .DS_Store
 CLAUDE.md
+.env
+dist/

@@ -3,7 +3,7 @@ name: Deploy site to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/pages.yml']
+    paths: ['site/**', 'scripts/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -28,9 +28,25 @@ jobs:
           node-version: 20
       - name: Check premium calculator
         run: node site/calc.test.js
+      - name: Build dist/ from repo Variables
+        run: node scripts/build.mjs
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          AGENT_FULL_NAME: ${{ vars.AGENT_FULL_NAME }}
+          AGENT_NICKNAME: ${{ vars.AGENT_NICKNAME }}
+          AGENT_TITLE: ${{ vars.AGENT_TITLE }}
+          AGENT_LICENSE: ${{ vars.AGENT_LICENSE }}
+          AGENT_PHONE: ${{ vars.AGENT_PHONE }}
+          AGENT_PHOTO: ${{ vars.AGENT_PHOTO }}
+          AGENT_BADGES: ${{ vars.AGENT_BADGES }}
+          LINE_OA_ID: ${{ vars.LINE_OA_ID }}
+          LINE_URL: ${{ vars.LINE_URL }}
+          LINE_QR: ${{ vars.LINE_QR }}
+          OG_IMAGE: ${{ vars.OG_IMAGE }}
+          OG_IMAGE_VERSION: ${{ vars.OG_IMAGE_VERSION }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
