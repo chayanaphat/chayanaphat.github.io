@@ -70,7 +70,14 @@
   .chips button{padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.15);font-size:15px;font-weight:600}
   .chips button[aria-pressed="true"]{background:#fff;color:var(--red)}
   .tip{font-size:13px;opacity:.85;margin-top:16px}
+  .custom-sa{margin-top:18px}
+  .custom-sa label{display:block;font-size:14px;opacity:.9;margin-bottom:6px}
+  .custom-sa input{width:100%;padding:14px 16px;border-radius:14px;border:2px solid transparent;background:#fff;color:var(--ink);font:inherit;font-size:18px;font-weight:600}
+  .custom-sa input:focus{outline:none;border-color:#ffd24d}
+  .custom-sa input.on{border-color:#ffd24d}
+  .sa-error{margin-top:6px;font-size:13px;font-weight:600;color:#ffd24d}
 
+  .next:disabled{opacity:.5;cursor:not-allowed}
   .next{margin-top:auto;width:100%;padding:16px;border-radius:16px;background:#fff;color:var(--red);font-size:17px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.15)}
   .step .spacer{flex:1;min-height:20px}
 
@@ -217,9 +224,14 @@
         <div class="kicker">คำถาม 3 / 3</div>
         <h2 id="saTitle">อยากให้ครอบครัวได้รับเงินเท่าไร?</h2>
         <div class="chips" id="saChips" role="group" aria-label="ทุนประกัน"></div>
+        <div class="custom-sa" id="customSaBox">
+          <label for="customSa">หรือระบุจำนวนเอง (บาท)</label>
+          <input id="customSa" type="text" inputmode="numeric" autocomplete="off" placeholder="เช่น 1,500,000">
+          <p class="sa-error" id="saError" hidden></p>
+        </div>
         <p class="tip" id="saTip"></p>
         <div class="spacer"></div>
-        <button class="next" data-next>ดูเบี้ยของฉัน →</button>
+        <button class="next" id="saNext" data-next>ดูเบี้ยของฉัน →</button>
       </div>
 
       <!-- Step 4: result -->
@@ -433,8 +445,42 @@ function renderSA() {
   $$('[data-sa]').forEach((b) => b.addEventListener('click', () => {
     state.sa = +b.dataset.sa;
     $$('[data-sa]').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    setCustomSA('');
   }));
+  $('#customSaBox').hidden = senior;
+  setCustomSA('');
 }
+
+// Own amount for "family" and "illness": from the lowest plan minimum to the highest plan maximum offered
+const CUSTOM_SA = { min: C.PLANS.pay20.minSA, max: C.PLANS.supercare.maxSA };
+
+function setCustomSA(raw) {
+  const input = $('#customSa');
+  const digits = raw.replace(/\D/g, '').replace(/^0+/, '').slice(0, 9);
+  input.value = digits ? (+digits).toLocaleString('en-US') : '';
+  input.classList.toggle('on', !!digits);
+  const err = $('#saError');
+  err.hidden = true;
+  if (!digits) {
+    if (!$('[data-sa][aria-pressed="true"]')) {
+      const chip = $(`[data-sa="${state.sa}"]`) || $('[data-sa="1000000"]');
+      if (chip) { chip.setAttribute('aria-pressed', true); state.sa = +chip.dataset.sa; }
+    }
+    $('#saNext').disabled = false;
+    return;
+  }
+  $$('[data-sa]').forEach((x) => x.setAttribute('aria-pressed', false));
+  const v = +digits;
+  if (v < CUSTOM_SA.min || v > CUSTOM_SA.max) {
+    err.textContent = `กรุณาระบุ ${fmt(CUSTOM_SA.min)} – ${fmt(CUSTOM_SA.max)} บาท`;
+    err.hidden = false;
+    $('#saNext').disabled = true;
+    return;
+  }
+  state.sa = v;
+  $('#saNext').disabled = false;
+}
+$('#customSa').addEventListener('input', (e) => setCustomSA(e.target.value));
 
 // ----- step 4 -----
 function quote() {
